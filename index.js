@@ -1,13 +1,11 @@
 const express = require('express')
-const dotenv = require('dotenv')
 const app = express()
 const port = 5000
 
 const bodyParser = require('body-parser')
 const { User } = require('./models/User')
 
-dotenv.config()
-const uri = process.env.MONGO_URI
+const config =  require('./config/key')
 
 // client에서 오는 정보를 서버에서 분석해서 가져올 수 있게끔 설정한다.
 // application/x-www-form-urlencoded
@@ -15,10 +13,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 // application/json
 app.use(bodyParser.json())
 
-console.log("URI: ", process.env.MONGO_URI)
-
 const mongoose = require('mongoose')
-mongoose.connect(uri)
+mongoose.connect(config.mongoURI)
 .then(() => console.log('MongoDB Connected...')).catch(err => console.log(err))
 
 app.get('/', (req, res) => res.send('Hello World! 반갑습니다!'))
