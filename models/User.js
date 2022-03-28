@@ -50,6 +50,9 @@ userSchema.pre('save', function(next){
                 next()
             })
         })
+    } else {
+        // 비밀번호가 아니라 다른 정보를 변경한다면 넘겨 준다.
+        next()
     }
 })
 
